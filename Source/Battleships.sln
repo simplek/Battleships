@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships.Domain", "Battl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships.UI", "Battleships.UI\Battleships.UI.csproj", "{EC1FA555-1BED-4354-BE70-00464DC82E97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships.Domain.Test", "Battleships.Domain.Test\Battleships.Domain.Test.csproj", "{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{EC1FA555-1BED-4354-BE70-00464DC82E97}.Release|Mixed Platforms.Build.0 = Release|x86
 		{EC1FA555-1BED-4354-BE70-00464DC82E97}.Release|x86.ActiveCfg = Release|x86
 		{EC1FA555-1BED-4354-BE70-00464DC82E97}.Release|x86.Build.0 = Release|x86
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{96D6831D-B814-4DD9-8008-CB40AC8D6AEC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

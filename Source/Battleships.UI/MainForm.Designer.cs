@@ -36,7 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnNewGame = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPlayerShips)).BeginInit();
             this.panel2.SuspendLayout();
@@ -79,6 +79,7 @@
             this.dgPlayerShips.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgPlayerShips.Size = new System.Drawing.Size(280, 280);
             this.dgPlayerShips.TabIndex = 0;
+            this.dgPlayerShips.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgPlayerShips_CellClick);
             // 
             // panel2
             // 
@@ -132,22 +133,23 @@
             this.lblStatus.Size = new System.Drawing.Size(0, 20);
             this.lblStatus.TabIndex = 5;
             // 
-            // button1
+            // btnNewGame
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(28, 394);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(168, 42);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "New Game";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnNewGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewGame.Location = new System.Drawing.Point(28, 394);
+            this.btnNewGame.Name = "btnNewGame";
+            this.btnNewGame.Size = new System.Drawing.Size(168, 42);
+            this.btnNewGame.TabIndex = 6;
+            this.btnNewGame.Text = "New Game";
+            this.btnNewGame.UseVisualStyleBackColor = true;
+            this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 477);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnNewGame);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -173,7 +175,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnNewGame;
         private System.Windows.Forms.DataGridView dgPlayerShips;
         private System.Windows.Forms.DataGridView dgComputerShips;
 
