@@ -61,22 +61,45 @@ namespace Battleships.Domain
             {
                 var startingSpaceGridUpdate = new GridUpdate
                 {
-                    ColumnIndexToUpdate = columnIndex,
-                    RowIndexToUpdate = rowIndex,
-                    IsPlayerGrid = true,
-                    PanelType = panelResult
-                };
-
-                var endingSpaceGridUpdate = new GridUpdate
-                {
                     ColumnIndexToUpdate = _startMoveColumnIndex,
                     RowIndexToUpdate = _startMoveRowIndex,
                     IsPlayerGrid = true,
                     PanelType = panelResult
                 };
 
-                updateList.Add(endingSpaceGridUpdate);
+                var endingSpaceGridUpdate = new GridUpdate
+                {
+                    ColumnIndexToUpdate = columnIndex,
+                    RowIndexToUpdate = rowIndex,
+                    IsPlayerGrid = true,
+                    PanelType = panelResult
+                };
+
                 updateList.Add(startingSpaceGridUpdate);
+
+                var horizontalGap = columnIndex - _startMoveColumnIndex;
+                var verticalGap = rowIndex - _startMoveRowIndex;
+
+                var sizeOfMove = horizontalGap + verticalGap;
+
+                bool sameRow = (Math.Abs(horizontalGap) > 0); 
+                
+                for (var i = 1; i < Math.Abs(sizeOfMove); i++)
+                {
+                    var directionToMoveIn = (sizeOfMove / Math.Abs(sizeOfMove)) * i;
+
+                    var inBetweenGridUpdates = new GridUpdate
+                    {
+                        IsPlayerGrid = true, 
+                        PanelType = panelResult,
+                        ColumnIndexToUpdate = sameRow ? _startMoveColumnIndex + directionToMoveIn : _startMoveColumnIndex,
+                        RowIndexToUpdate = sameRow ? _startMoveRowIndex : _startMoveRowIndex + directionToMoveIn
+                    };
+
+                    updateList.Add(inBetweenGridUpdates);
+                }
+
+                updateList.Add(endingSpaceGridUpdate);
 
                 statusMessage = String.Empty;
             }
@@ -86,6 +109,8 @@ namespace Battleships.Domain
             }
             
             _setupMoveCount += updateList.Count;
+            _preceededByStartMove = false;
+
             return new GridUpdateEvent(updateList, statusMessage);
         }
 
@@ -148,7 +173,7 @@ namespace Battleships.Domain
                     var playerGridUpdate = new GridUpdate
                     {
                         ColumnIndexToUpdate = i,
-                        RowIndexToUpdate = i,
+                        RowIndexToUpdate = j,
                         IsPlayerGrid = true,
                         PanelType = PanelType.Unknown
                     };
@@ -156,7 +181,7 @@ namespace Battleships.Domain
                     var computerGridUpdate = new GridUpdate
                     {
                         ColumnIndexToUpdate = i,
-                        RowIndexToUpdate = i,
+                        RowIndexToUpdate = j,
                         IsPlayerGrid = true,
                         PanelType = PanelType.Unknown
                     };
@@ -165,6 +190,8 @@ namespace Battleships.Domain
                     clearResults.Add(computerGridUpdate);
                 }
             }
+
+            _setupMoveCount = 0;
 
             return new GridUpdateEvent(clearResults, "Game reset.");
         }
