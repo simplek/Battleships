@@ -128,7 +128,8 @@
             this.lblStatus.AllowDrop = true;
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(24, 346);
+            this.lblStatus.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblStatus.Location = new System.Drawing.Point(458, 20);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 20);
             this.lblStatus.TabIndex = 5;

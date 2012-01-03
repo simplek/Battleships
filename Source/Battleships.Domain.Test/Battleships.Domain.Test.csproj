@@ -44,8 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameControllerTests.cs" />
+    <Compile Include="GameSetupTests.cs" />
+    <Compile Include="GameResetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Battleships.Domain\Battleships.Domain.csproj">
+      <Project>{E00262E5-3F32-46F1-9A02-950142DC0607}</Project>
+      <Name>Battleships.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

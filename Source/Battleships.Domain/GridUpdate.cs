@@ -1,6 +1,6 @@
 namespace Battleships.Domain
 {
-    public class MoveResult
+    public class GridUpdate
     {
         public PanelType PanelType { get; set; }
         public bool IsPlayerGrid { get; set; }

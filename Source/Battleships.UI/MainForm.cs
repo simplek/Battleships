@@ -8,7 +8,7 @@ namespace Battleships
 {
     public partial class MainForm : Form
     {
-        private GameController _gameController;
+        private BattleshipsGame _battleshipsGame;
         private const bool IsPlayerGrid = true;
         const int GridSize = 10;
 
@@ -18,7 +18,7 @@ namespace Battleships
             SetupGrid(dgPlayerShips);
             SetupGrid(dgComputerShips);
 
-            _gameController = new GameController(GridSize);
+            _battleshipsGame = new BattleshipsGame(GridSize);
         }
 
         private void SetupGrid(DataGridView grid)
@@ -81,7 +81,7 @@ namespace Battleships
             grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
-        private void UpdateGrids(MoveResult result)
+        private void UpdateGrids(GridUpdate result)
         {
             var gridToUpdate = result.IsPlayerGrid
                 ? dgPlayerShips
@@ -143,15 +143,27 @@ namespace Battleships
             // TODO: test that clicks aren't too rapid
             // TODO: pub/sub controller + form control
 
-            List<MoveResult> results = _gameController.ProcessMove(IsPlayerGrid, e.ColumnIndex, e.RowIndex);
+            GridUpdateEvent results = _battleshipsGame.GetMoveResults(IsPlayerGrid, e.ColumnIndex, e.RowIndex);
 
-            foreach (var result in results) { UpdateGrids(result); }
+            UpdateBy(results);
         }
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
             // TODO: confirm dialog
-            var results = _gameController.ResetGame();
+
+            var results = _battleshipsGame.GetResetGameResults();
+            UpdateBy(results);
+        }
+
+        private void UpdateBy(GridUpdateEvent results)
+        {
+            foreach (var result in results.GridUpdates)
+            {
+                UpdateGrids(result);
+            }
+
+            lblStatus.Text = results.Summary;
         }
     }
 }
