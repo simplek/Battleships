@@ -27,7 +27,7 @@ namespace Battleships.Domain.Test
 
             var resultUnderTest = game.GetMoveResults(true, 0, 0);
 
-            Assert.That(resultUnderTest.Summary, Is.EqualTo("Place the other end of the patrol boat (length 2)"));
+            Assert.That(resultUnderTest.Summary, Is.EqualTo("Place the other end of the PatrolBoat"));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace Battleships.Domain.Test
 
             var resultUnderTest = game.GetMoveResults(false, 0, 0);
 
-            Assert.That(resultUnderTest.GridUpdates, Is.EqualTo(0));
+            Assert.That(resultUnderTest.GridUpdates.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -83,18 +83,18 @@ namespace Battleships.Domain.Test
 
             var game = new BattleshipsGame(DefaultGridSize);
 
-            game.GetMoveResults(true, rowIndexOfFirstMove, columnIndexOfMoves);
-            
-            var resultUnderTest = game.GetMoveResults(true, rowIndexOfSecondMove, columnIndexOfMoves);
+            game.GetMoveResults(true, columnIndexOfMoves, rowIndexOfFirstMove);
+
+            var resultUnderTest = game.GetMoveResults(true, columnIndexOfMoves, rowIndexOfSecondMove);
 
             var firstGridUpdate = resultUnderTest.GridUpdates[0];
             var secondGridUpdate = resultUnderTest.GridUpdates[1];
 
             Assert.That(firstGridUpdate.ColumnIndexToUpdate, Is.EqualTo(columnIndexOfMoves));
-            Assert.That(firstGridUpdate.ColumnIndexToUpdate, Is.EqualTo(columnIndexOfMoves));
+            Assert.That(firstGridUpdate.RowIndexToUpdate, Is.EqualTo(rowIndexOfFirstMove));
 
-            Assert.That(secondGridUpdate.ColumnIndexToUpdate, Is.EqualTo(rowIndexOfFirstMove));
-            Assert.That(secondGridUpdate.ColumnIndexToUpdate, Is.EqualTo(rowIndexOfSecondMove));
+            Assert.That(secondGridUpdate.ColumnIndexToUpdate, Is.EqualTo(columnIndexOfMoves));
+            Assert.That(secondGridUpdate.RowIndexToUpdate, Is.EqualTo(rowIndexOfSecondMove));
         }
 
         [Test]
@@ -121,10 +121,48 @@ namespace Battleships.Domain.Test
 
             var game = new BattleshipsGame(DefaultGridSize);
 
-            game.GetMoveResults(true, rowIndexOfFirstMove, columnIndexOfMoves);
-            var resultUnderTest = game.GetMoveResults(true, rowIndexOfSecondMove, columnIndexOfMoves);
+            game.GetMoveResults(true, columnIndexOfMoves, rowIndexOfFirstMove);
+            var resultUnderTest = game.GetMoveResults(true, columnIndexOfMoves, rowIndexOfSecondMove);
 
-            Assert.That(resultUnderTest.Summary, Is.EqualTo("Click the start and end of the patrol boat, 2 spaces apart."));
+            Assert.That(resultUnderTest.Summary, Is.EqualTo("Place the other end of the PatrolBoat"));
+        }
+
+        [Test]
+        public void After_placing_the_patrol_boat_the_next_move_will_prompt_to_place_the_cruiser()
+        {
+            const int columnIndexOfMoves = 0;
+            const int rowIndexOfFirstMove = 0;
+            const int rowIndexOfSecondMove = 1;
+            const int rowIndexOfThirdMove = 6;
+
+            var game = new BattleshipsGame(DefaultGridSize);
+
+            game.GetMoveResults(true, rowIndexOfFirstMove, columnIndexOfMoves);
+            game.GetMoveResults(true, rowIndexOfSecondMove, columnIndexOfMoves);
+
+            var resultUnderTest = game.GetMoveResults(true, columnIndexOfMoves, rowIndexOfThirdMove);
+            
+            Assert.That(resultUnderTest.Summary, Is.EqualTo("Place the other end of the Cruiser"));
+        }
+
+        [Test]
+        public void After_placing_the_patrol_boat_and_the_first_space_of_the_cruiser_the_next_move_two_spaces_placed_away_will_be_three_grid_updates()
+        {
+            const int columnIndexOfMoves = 0;
+            const int rowIndexOfFirstMove = 0;
+            const int rowIndexOfSecondMove = 1;
+            const int rowIndexOfThirdMove = 6;
+            const int rowIndexOfFourthMove = 8;
+
+            var game = new BattleshipsGame(DefaultGridSize);
+
+            game.GetMoveResults(true, rowIndexOfFirstMove, columnIndexOfMoves);
+            game.GetMoveResults(true, rowIndexOfSecondMove, columnIndexOfMoves);
+            game.GetMoveResults(true, columnIndexOfMoves, rowIndexOfThirdMove);
+            
+            var resultUnderTest = game.GetMoveResults(true, columnIndexOfMoves, rowIndexOfFourthMove);
+
+            Assert.That(resultUnderTest.GridUpdates.Count, Is.EqualTo(3));
         }
     }
 }

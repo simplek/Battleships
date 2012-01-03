@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Battleships.Domain
@@ -11,6 +12,12 @@ namespace Battleships.Domain
         {
             GridUpdates = gridUpdates;
             Summary = summary;
+        }
+
+        public GridUpdateEvent()
+        {
+            GridUpdates = new List<GridUpdate>();
+            Summary = String.Empty;
         }
     }
 }
